@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. Kashi | Mockup C, Big Screen</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+/* Direction C: Big Screen. His work presented like a slate of shows. White page,
+   black type, no accent colour at all: full-bleed photographs bring the colour.
+   One family (Archivo) used two ways: stretched wide for titles, normal for reading.
+   Square corners everywhere, like film frames. */
+:root {
+  --paper: #ffffff;
+  --fog: #f0f1f1;
+  --ink: #141517;
+  --ink-2: #5a5e64;
+  --line: #d9dbde;
+  --max: 1320px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 76px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: "Archivo", ui-sans-serif, system-ui, sans-serif; font-stretch: 100%;
+  font-size: 1.0625rem; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+figure, dl, dd { margin: 0; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.wide { font-stretch: 125%; }
+.h2 { font-stretch: 125%; font-weight: 750; font-size: clamp(2rem, 4.6vw, 4.25rem); line-height: 1; letter-spacing: -0.025em; }
+.intro { color: var(--ink-2); font-size: clamp(1.0625rem, 1.4vw, 1.25rem); max-width: 50ch; margin-top: 16px; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px;
+  font-weight: 600; font-size: 1rem; text-decoration: none; white-space: nowrap;
+  border: 1.5px solid var(--ink); transition: background-color 160ms ease, color 160ms ease, transform 160ms var(--ease);
+}
+.btn:active { transform: translateY(1px); }
+.btn img { width: 18px; height: 18px; }
+.btn-ink { background: var(--ink); color: #fff; }
+.btn-ink:hover { background: #2c2e33; }
+.btn-line { background: transparent; color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: #fff; }
+.link { font-weight: 600; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; }
+
+/* Nav: sits on the sky of the hero photo, turns white once you scroll past it */
+.nav { position: fixed; inset: 0 0 auto; z-index: 40; transition: background-color 220ms ease, box-shadow 220ms ease; }
+.nav.solid { background: rgb(255 255 255 / 0.94); box-shadow: 0 1px 0 var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.nav-in { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 72px; }
+.brand { font-stretch: 125%; font-weight: 800; font-size: 1.1875rem; letter-spacing: -0.01em; text-decoration: none; }
+.nav ul { display: flex; gap: 30px; }
+.nav ul a { font-weight: 500; text-decoration: none; }
+.nav ul a:hover { text-decoration: underline; text-underline-offset: 6px; }
+.nav .btn { height: 42px; padding: 0 18px; font-size: 0.9375rem; }
+@media (max-width: 767px) { .nav ul { display: none; } }
+
+/* Hero: full-bleed, the title written into the sky above the fields */
+.hero { position: relative; isolation: isolate; overflow: hidden; min-height: max(640px, min(100svh, 1000px)); display: grid; grid-template-rows: 1fr auto; }
+.hero-bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; }
+.hero::after { content: ""; position: absolute; inset: auto 0 0; height: 38%; z-index: -1; background: linear-gradient(to top, rgb(12 16 12 / 0.7), rgb(12 16 12 / 0)); }
+.hero > .wrap { width: 100%; }
+.hero-in { padding-top: calc(72px + clamp(20px, 4vw, 56px)); }
+.hero h1 {
+  font-stretch: 125%; font-weight: 850; text-transform: uppercase;
+  font-size: clamp(3.1rem, 11.6vw, 13rem); line-height: 0.86; letter-spacing: -0.02em;
+}
+.hero-sub { margin-top: clamp(16px, 2vw, 24px); font-size: clamp(1.125rem, 1.6vw, 1.375rem); font-weight: 500; max-width: 30ch; line-height: 1.45; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; margin-top: 28px; }
+.billing { display: flex; flex-wrap: wrap; gap: 18px clamp(28px, 5vw, 72px); padding-block: 26px 34px; color: #fff; }
+.billing div { display: flex; flex-direction: column-reverse; }
+.billing dd { font-stretch: 112%; font-weight: 700; font-size: clamp(1.625rem, 3vw, 2.75rem); line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.billing dt { margin-top: 8px; color: rgb(255 255 255 / 0.88); font-size: 0.9688rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-bg { animation: settle 2400ms var(--ease) both; }
+  .hero h1 { animation: rise 1100ms var(--ease) 150ms both; }
+  @keyframes settle { from { transform: scale(1.08); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(0.18em); } }
+}
+
+/* Videos: one feature, then a shelf of posters */
+.videos { padding-block: clamp(80px, 11vw, 150px); }
+.feature { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px clamp(24px, 4vw, 64px); align-items: end; margin-top: clamp(40px, 5vw, 64px); }
+.feature-media { grid-column: 1 / span 7; position: relative; aspect-ratio: 5 / 4; overflow: hidden; background: var(--fog); }
+.feature-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 63%; transition: transform 900ms var(--ease); }
+.feature-media:hover img { transform: scale(1.03); }
+.feature-copy { grid-column: 8 / span 5; padding-bottom: 6px; }
+.label { color: var(--ink-2); font-weight: 600; }
+.feature-title { margin-top: 10px; font-stretch: 125%; font-weight: 850; font-size: clamp(3rem, 7vw, 6.75rem); line-height: 0.9; letter-spacing: -0.03em; }
+.feature-sub { margin-top: 14px; font-size: 1.25rem; font-weight: 600; }
+.feature-body { margin-top: 14px; color: var(--ink-2); max-width: 40ch; }
+.feature-stat { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+.feature-stat strong { display: block; font-stretch: 112%; font-weight: 750; font-size: clamp(1.75rem, 2.8vw, 2.5rem); line-height: 1.05; letter-spacing: -0.02em; }
+.feature-stat span { color: var(--ink-2); }
+.feature-copy .btn { margin-top: 28px; }
+.posters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); margin-top: clamp(56px, 7vw, 96px); }
+.poster { display: block; text-decoration: none; }
+.poster-img { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: var(--fog); }
+.poster-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 800ms var(--ease); }
+a.poster:hover .poster-img img { transform: scale(1.04); }
+.poster-img .play { position: absolute; left: 12px; bottom: 12px; width: 44px; height: 44px; display: grid; place-items: center; background: #fff; color: var(--ink); font-size: 16px; }
+.poster h3 { margin-top: 14px; font-stretch: 125%; font-weight: 750; font-size: clamp(1.0625rem, 1.5vw, 1.375rem); letter-spacing: -0.015em; line-height: 1.15; }
+.poster p { margin-top: 3px; color: var(--ink-2); font-size: 0.9688rem; line-height: 1.45; }
+@media (max-width: 899px) {
+  .feature { grid-template-columns: 1fr; }
+  .feature-media, .feature-copy { grid-column: auto; }
+  .feature-media { aspect-ratio: 4 / 5; }
+  .posters { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; }
+}
+
+/* Story: told as episodes */
+.story { background: var(--fog); padding-block: clamp(80px, 11vw, 150px); }
+.eps { margin-top: clamp(40px, 5vw, 64px); }
+.ep {
+  display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(0, 7fr); gap: clamp(16px, 3vw, 40px);
+  align-items: start; padding-block: clamp(20px, 2.6vw, 32px); border-top: 1px solid var(--line);
+}
+.ep:last-child { border-bottom: 1px solid var(--line); }
+.ep-thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #e2e4e5; }
+.ep-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ep-year { font-stretch: 125%; font-weight: 800; font-size: clamp(1.75rem, 3.4vw, 3.25rem); line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.ep h3 { font-stretch: 112%; font-weight: 700; font-size: clamp(1.25rem, 1.9vw, 1.625rem); line-height: 1.15; letter-spacing: -0.015em; }
+.ep-copy p { margin-top: 8px; color: var(--ink-2); max-width: 58ch; }
+@media (max-width: 767px) {
+  .ep { grid-template-columns: 112px minmax(0, 1fr); }
+  .ep-year { grid-column: 2; grid-row: 1; font-size: 1.75rem; }
+  .ep-thumb { grid-row: 1 / span 2; }
+  .ep-copy { grid-column: 2; }
+}
+
+/* Cast: the photo full-bleed, then the names as credits */
+.cast { padding-bottom: clamp(80px, 11vw, 150px); }
+.cast-photo img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; object-position: 50% 62%; }
+.cast-head { text-align: center; padding-top: clamp(56px, 8vw, 104px); }
+.cast-head .intro { margin-inline: auto; }
+.roll { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); row-gap: 6px; max-width: 820px; margin: clamp(40px, 5vw, 64px) auto 0; }
+.roll div { display: contents; }
+.roll dt { grid-column: 1; text-align: right; color: var(--ink-2); font-weight: 500; padding-top: 0.55em; margin-top: 30px; }
+.roll dd { grid-column: 2; font-stretch: 118%; font-weight: 700; font-size: clamp(1.375rem, 2.5vw, 2.125rem); line-height: 1.2; letter-spacing: -0.02em; }
+.roll dt + dd { margin-top: 30px; }
+.roll div:first-child dt, .roll div:first-child dd { margin-top: 0; }
+.roll dd small { display: block; font-stretch: 100%; font-weight: 500; font-size: 0.9375rem; color: var(--ink-2); letter-spacing: 0; }
+@media (max-width: 639px) {
+  .cast-photo img { aspect-ratio: 4 / 3; }
+  .roll { grid-template-columns: 1fr; text-align: center; }
+  .roll dt, .roll dd { grid-column: 1; text-align: center; }
+  .roll dt + dd { margin-top: 2px; }
+}
+
+/* Follow */
+.follow { padding-bottom: clamp(80px, 11vw, 150px); }
+.channels { margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--ink); }
+.channels a {
+  display: grid; grid-template-columns: 44px minmax(0, 4fr) minmax(0, 3fr) minmax(0, 4fr) auto; align-items: center; gap: 20px;
+  padding-block: 22px; border-bottom: 1px solid var(--line); text-decoration: none; transition: background-color 160ms ease, padding 220ms var(--ease);
+}
+.channels a:hover { background: var(--fog); padding-inline: 16px; }
+.channels img { width: 28px; height: 28px; }
+.ch-name { font-stretch: 118%; font-weight: 750; font-size: clamp(1.25rem, 2vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.15; }
+.ch-name small { display: block; font-stretch: 100%; font-weight: 500; font-size: 0.9375rem; color: var(--ink-2); letter-spacing: 0; }
+.ch-fig { font-weight: 650; font-variant-numeric: tabular-nums; }
+.ch-note { color: var(--ink-2); }
+.ch-go { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+@media (max-width: 899px) {
+  .channels a { grid-template-columns: 36px minmax(0, 1fr) auto; row-gap: 4px; }
+  .ch-fig, .ch-note { grid-column: 2; }
+  .ch-go { grid-column: 3; grid-row: 1; }
+  .ch-go span { display: none; }
+}
+
+/* FAQ: questions in a ruled list, each opens in place */
+.faq { padding-bottom: clamp(88px, 12vw, 160px); }
+.faq-list { margin-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--ink); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding-block: clamp(20px, 2.4vw, 28px); cursor: pointer; list-style: none;
+  font-stretch: 112%; font-weight: 700; font-size: clamp(1.25rem, 2.2vw, 1.875rem); line-height: 1.2; letter-spacing: -0.02em;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary i { flex: 0 0 auto; font-size: 26px; transition: transform 200ms var(--ease); }
+.faq details[open] summary i { transform: rotate(45deg); }
+.faq details p { padding-bottom: 28px; max-width: 62ch; color: var(--ink-2); font-size: 1.125rem; }
+.faq details a { color: var(--ink); font-weight: 600; text-underline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .faq summary i { transition: none; } }
+
+/* Closing */
+.contact { border-top: 1px solid var(--line); }
+.contact-in { text-align: center; padding-block: clamp(80px, 11vw, 150px) clamp(56px, 7vw, 96px); }
+.contact h2 { font-stretch: 125%; font-weight: 850; font-size: clamp(2.75rem, 9vw, 9.5rem); line-height: 0.9; letter-spacing: -0.035em; }
+.contact p.say { margin: 24px auto 0; font-size: clamp(1.0625rem, 1.5vw, 1.3125rem); color: var(--ink-2); max-width: 38ch; }
+.contact .actions { justify-content: center; margin-top: 32px; }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 32px; padding-block: 28px 36px; border-top: 1px solid var(--line); color: var(--ink-2); font-size: 0.9375rem; }
+.foot strong { color: var(--ink); font-stretch: 125%; }
+
+/* Review chrome, not part of the design. Hidden with ?clean */
+.switch { position: fixed; z-index: 90; left: 50%; bottom: 16px; transform: translateX(-50%); display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgb(20 20 24 / 0.82); backdrop-filter: blur(8px); font: 500 13px/1 system-ui, sans-serif; }
+.switch a { color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 999px; }
+.switch a[aria-current] { background: #fff; color: #111; }
+.clean .switch { display: none; }
+.shot .nav { display: none; }
+html.shot { scroll-padding-top: 0; }
+</style>
+</head>
+<body>
+<script>
+  // Review-only switches: ?clean hides the mockup switcher; ?shot also hides the
+  // nav, for screenshots of single sections.
+  const q = new URLSearchParams(location.search);
+  if (q.has('clean')) document.documentElement.classList.add('clean');
+  if (q.has('shot')) document.documentElement.classList.add('clean', 'shot');
+</script>
+
+<header class="nav" data-nav>
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">Mr. Kashi</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#story">Story</a></li>
+        <li><a href="#cast">Cast</a></li>
+        <li><a href="#follow">Follow</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-ink" href="#contact">Work with Kashi</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
+    <img class="hero-bg" src="img/fields.jpg" alt="Kashi running along a path between wheat fields, one arm raised, under a hazy sky" fetchpriority="high">
+    <div class="wrap hero-in">
+      <h1 id="hero-title">Mr. Kashi</h1>
+      <p class="hero-sub">Comedian and video maker from a village near Chanigoth, Bahawalpur.</p>
+      <div class="actions">
+        <a class="btn btn-ink" href="https://www.tiktok.com/@mr.malik.kashi2/video/7467150628985326881" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="">Watch Adalat</a>
+        <a class="link" href="#story">How it happened</a>
+      </div>
+    </div>
+    <dl class="wrap billing" aria-label="Audience">
+      <div><dt>followers on TikTok</dt><dd>2,000,000+</dd></div>
+      <div><dt>followers on Facebook</dt><dd>850,000+</dd></div>
+      <div><dt>views on one Adalat episode</dt><dd>25,000,000</dd></div>
+    </dl>
+  </section>
+
+  <section class="videos wrap" id="videos" aria-labelledby="videos-title">
+    <h2 class="h2" id="videos-title">The videos</h2>
+    <p class="intro">Comedy first. Short viral clips at the start, longer stories now, the same characters throughout.</p>
+    <div class="feature">
+      <a class="feature-media" href="https://www.tiktok.com/@mr.malik.kashi2/video/7467150628985326881" target="_blank" rel="noopener" aria-label="Watch Adalat on TikTok"><img loading="lazy" src="img/adalat.jpg" alt="The Adalat courtroom set in a village courtyard, seen from above"></a>
+      <div class="feature-copy">
+        <p class="label">Now showing</p>
+        <h3 class="feature-title">Adalat</h3>
+        <p class="feature-sub">The courtroom series</p>
+        <p class="feature-body">Longer videos on Mr. Malik Kashi 2. Slow at first, then the courtroom episodes took off and carried the account past two million followers.</p>
+        <p class="feature-stat"><strong>20 to 25 million</strong><span>views an episode</span></p>
+        <a class="btn btn-ink" href="https://www.tiktok.com/@mr.malik.kashi2/video/7467150628985326881" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="">Watch on TikTok</a>
+      </div>
+    </div>
+    <ul class="posters">
+      <li><div class="poster"><div class="poster-img"><img loading="lazy" src="img/nanaji-chairs.jpg" alt="Akbar Ali as Nana Ji with Kashi on red plastic chairs" style="object-position: 40% 50%"></div><h3>Nana Ji</h3><p>Played by Akbar Ali</p></div></li>
+      <li><a class="poster" href="https://www.youtube.com/watch?v=S3SZQQ1xAdg" target="_blank" rel="noopener"><div class="poster-img"><img loading="lazy" src="img/lastdoor.jpg" alt="" style="object-position: 37% 50%"><span class="play"><i class="ph-fill ph-play" aria-hidden="true"></i></span></div><h3>The Last Door</h3><p>Psychological thriller series. Episode 1 on YouTube</p></a></li>
+      <li><a class="poster" href="https://www.tiktok.com/@mr_malik_kashi/video/7404338885599284487" target="_blank" rel="noopener"><div class="poster-img"><img loading="lazy" src="img/gujjar.jpg" alt="" style="object-position: 50% 50%"><span class="play"><i class="ph-fill ph-play" aria-hidden="true"></i></span></div><h3>Gujjar trend</h3><p>The 2024 videos that started it</p></a></li>
+      <li><a class="poster" href="https://www.youtube.com/watch?v=M_8JNCPlqlk" target="_blank" rel="noopener"><div class="poster-img"><img loading="lazy" src="img/bts-crop.jpg" alt="" style="object-position: 64% 50%"><span class="play"><i class="ph-fill ph-play" aria-hidden="true"></i></span></div><h3>Vlogs</h3><p>Behind the scenes with the team</p></a></li>
+    </ul>
+  </section>
+
+  <section class="story" id="story" aria-labelledby="story-title">
+    <div class="wrap">
+      <h2 class="h2" id="story-title">How it happened</h2>
+      <ol class="eps">
+        <li class="ep">
+          <div class="ep-thumb"><img loading="lazy" src="img/portrait.jpg" alt="Kashi, smiling, in a blue checked shirt" style="object-position: 50% 30%"></div>
+          <p class="ep-year">2020</p>
+          <div class="ep-copy"><h3>A phone and no audience</h3><p>He starts making videos on his own. Nobody is watching yet. He posts anyway.</p></div>
+        </li>
+        <li class="ep">
+          <div class="ep-thumb"><img loading="lazy" src="img/nanaji-handshake.jpg" alt="Kashi and Akbar Ali shaking hands among the trees outside the village" style="object-position: 50% 36%"></div>
+          <p class="ep-year">2023</p>
+          <div class="ep-copy"><h3>All in on YouTube</h3><p>He commits to a schedule and works at it every day. The numbers stay small. He changes the format instead of quitting.</p></div>
+        </li>
+        <li class="ep">
+          <div class="ep-thumb"><img loading="lazy" src="img/gujjar.jpg" alt="A still from one of the Gujjar-trend videos" style="object-position: 50% 45%"></div>
+          <p class="ep-year">2024</p>
+          <div class="ep-copy"><h3>TikTok</h3><p>The Gujjar trend and movie dialogues take over Pakistani TikTok. Kashi does them his way. The videos blow up, and soon other creators are lip-syncing his audio.</p></div>
+        </li>
+        <li class="ep">
+          <div class="ep-thumb"><img loading="lazy" src="img/adalat.jpg" alt="The Adalat courtroom set" style="object-position: 50% 60%"></div>
+          <p class="ep-year">Then</p>
+          <div class="ep-copy"><h3>Adalat</h3><p>A second account, Mr. Malik Kashi 2, for videos over a minute long. Slow at first. Then the courtroom videos hit: 20 to 25 million views on single episodes, and the account passes two million followers.</p></div>
+        </li>
+        <li class="ep">
+          <div class="ep-thumb"><img loading="lazy" src="img/cast-shoot.jpg" alt="Kashi and his cast on a shoot" style="object-position: 50% 66%"></div>
+          <p class="ep-year">Now</p>
+          <div class="ep-copy"><h3>Seven people and longer films</h3><p>Three-minute comedies, short films like The Last Door, vlogs and the characters. Seven people now make the videos with him.</p></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="cast" id="cast" aria-labelledby="cast-title">
+    <figure class="cast-photo"><img loading="lazy" src="img/team.jpg" alt="Kashi in the middle of five members of his team, standing in front of a wall with marigolds and trees behind them"></figure>
+    <div class="wrap">
+      <div class="cast-head">
+        <h2 class="h2" id="cast-title">The cast</h2>
+        <p class="intro">Kashi made every video alone for the first years. These seven stayed through the slow stretch and are in nearly every video now.</p>
+      </div>
+      <dl class="roll">
+        <div><dt>Starring</dt><dd>Muhammad Kashif</dd></div>
+        <div><dt>Nana Ji</dt><dd>Akbar Ali</dd></div>
+        <div><dt>With</dt><dd>Adnan Bhatti</dd><dd>Amjad Saeed</dd><dd>Junaid Ahmed</dd><dd>Ali</dd><dd>Muzzamil</dd></div>
+        <div><dt>Camera</dt><dd>Muhammad Qamar<small>Kashi's younger brother</small></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="follow wrap" id="follow" aria-labelledby="follow-title">
+    <h2 class="h2" id="follow-title">Follow him</h2>
+    <p class="intro">The courtroom videos live on Mr. Malik Kashi 2.</p>
+    <ul class="channels">
+      <li><a href="https://www.tiktok.com/@mr.malik.kashi2" target="_blank" rel="me noopener"><img src="https://cdn.simpleicons.org/tiktok/141517" alt=""><span class="ch-name">Mr. Malik Kashi 2<small>TikTok</small></span><span class="ch-fig">2,000,000+ followers</span><span class="ch-note">Longer comedy and the courtroom series</span><span class="ch-go"><span>Open</span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></a></li>
+      <li><a href="https://www.tiktok.com/@mr_malik_kashi" target="_blank" rel="me noopener"><img src="https://cdn.simpleicons.org/tiktok/141517" alt=""><span class="ch-name">Mr. Malik Kashi<small>TikTok</small></span><span class="ch-fig">The original</span><span class="ch-note">Where the Gujjar-trend videos first went viral</span><span class="ch-go"><span>Open</span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></a></li>
+      <li><a href="https://www.facebook.com/profile.php?id=61570856075036" target="_blank" rel="me noopener"><img src="https://cdn.simpleicons.org/facebook/141517" alt=""><span class="ch-name">Mr Kashi<small>Facebook</small></span><span class="ch-fig">634,000+ followers</span><span class="ch-note">Comedy and entertainment</span><span class="ch-go"><span>Open</span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></a></li>
+      <li><a href="https://www.youtube.com/@mrkashifun" target="_blank" rel="me noopener"><img src="https://cdn.simpleicons.org/youtube/141517" alt=""><span class="ch-name">Mr. Kashi Fun<small>YouTube</small></span><span class="ch-fig">Comedy</span><span class="ch-note">Sketches and characters</span><span class="ch-go"><span>Open</span><i class="ph ph-arrow-up-right" aria-hidden="true"></i></span></a></li>
+    </ul>
+  </section>
+
+  <section class="faq wrap" id="faq" aria-labelledby="faq-title">
+    <h2 class="h2" id="faq-title">Questions</h2>
+    <div class="faq-list">
+      <details open>
+        <summary>Where is Kashi from?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Basti Abdul Kareem, a village near Chanigoth in Bahawalpur District, Punjab. He was born there in 2002, grew up there, and still films there.</p>
+      </details>
+      <details>
+        <summary>What did he study?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Computer science. He has a BS from The Islamia University of Bahawalpur.</p>
+      </details>
+      <details>
+        <summary>How can a brand work with him?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Message him on <a href="https://www.tiktok.com/@mr.malik.kashi2" target="_blank" rel="noopener">TikTok</a> or <a href="https://www.facebook.com/profile.php?id=61570856075036" target="_blank" rel="noopener">Facebook</a>. Brands, collaborations and appearances all go through there.</p>
+      </details>
+      <details>
+        <summary>Which account should I follow?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Mr. Malik Kashi 2 on TikTok, for the longer comedy and the courtroom series. Mr. Malik Kashi is the original account, where the Gujjar-trend videos first went viral. He is also on Facebook as Mr Kashi and on YouTube as Mr. Kashi Fun.</p>
+      </details>
+      <details>
+        <summary>What is Adalat?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>His courtroom comedy series on Mr. Malik Kashi 2. Single episodes have reached 20 to 25 million views.</p>
+      </details>
+      <details>
+        <summary>Does he make longer videos too?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Yes. Three-minute comedies, vlogs, the character videos, and short films like The Last Door, a psychological thriller series on YouTube.</p>
+      </details>
+      <details>
+        <summary>Who edits his videos?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>Kashi does most of the editing himself.</p>
+      </details>
+      <details>
+        <summary>What does he do off camera?<i class="ph ph-plus" aria-hidden="true"></i></summary>
+        <p>He plays cricket, whenever there is time.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-in">
+      <h2 id="contact-title">Work with Kashi.</h2>
+      <p class="say">Brands, collaborations, appearances: message him on TikTok or Facebook.</p>
+      <div class="actions">
+        <a class="btn btn-ink" href="https://www.tiktok.com/@mr.malik.kashi2" target="_blank" rel="noopener"><img src="https://cdn.simpleicons.org/tiktok/ffffff" alt="">Message on TikTok</a>
+        <a class="btn btn-line" href="https://www.facebook.com/profile.php?id=61570856075036" target="_blank" rel="noopener">Message on Facebook</a>
+      </div>
+    </div>
+    <footer class="wrap">
+      <div class="foot">
+        <p><strong>Mr. Kashi.</strong> Muhammad Kashif, Basti Abdul Kareem, Bahawalpur District, Pakistan.</p>
+        <p>&copy; 2026 Muhammad Kashif</p>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<nav class="switch" aria-label="Mockups">
+  <a href="a-daylight.html">A</a>
+  <a href="c-big-screen.html" aria-current="page">C</a>
+</nav>
+
+<script>
+  // The nav turns solid once the hero photo has scrolled away.
+  const nav = document.querySelector('[data-nav]');
+  const hero = document.querySelector('[data-hero]');
+  new IntersectionObserver(([entry]) => nav.classList.toggle('solid', !entry.isIntersecting), {
+    rootMargin: '-72px 0px 0px 0px',
+  }).observe(hero);
+</script>
+</body>
+</html>
